@@ -1,4 +1,4 @@
-// Theme Management
+// switching theme
 const initTheme = () => {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
@@ -21,15 +21,15 @@ const toggleTheme = () => {
     updateThemeIcon(newTheme);
 };
 
-// Create Theme Toggle Button in Navbar
+// theme toggle button in navbar
 const createThemeToggle = () => {
     const nav = document.querySelector('nav');
     
-    // Check if nav-links exists
+    // checking if nav-links exists
     const navLinks = nav.querySelector('.nav-links');
     if (!navLinks) return;
     
-    // Create toggle button
+    //creating toggle button
     const toggleBtn = document.createElement('button');
     toggleBtn.className = 'theme-toggle';
     toggleBtn.setAttribute('aria-label', 'Toggle theme');
@@ -38,17 +38,17 @@ const createThemeToggle = () => {
     toggleBtn.innerHTML = `<span class="theme-icon">${currentTheme === 'dark' ? '☀️' : '🌙'}</span>`;
     toggleBtn.addEventListener('click', toggleTheme);
     
-    // Create wrapper for nav-links and toggle
+    //creating wrapper
     const navRight = document.createElement('div');
     navRight.className = 'nav-right';
     
-    // Insert wrapper before nav-links, then move nav-links into it
+    //inserting wrapper
     nav.insertBefore(navRight, navLinks);
     navRight.appendChild(navLinks);
     navRight.appendChild(toggleBtn);
 };
 
-// Generate Starfield
+//to generate starfield
 const createStarfield = () => {
     const starfield = document.getElementById('starfield');
     const starCount = window.innerWidth < 768 ? 100 : 200;
@@ -66,7 +66,7 @@ const createStarfield = () => {
     }
 };
 
-// Custom Cursor with Stardust Trail
+//custom cursor
 let mouseX = 0, mouseY = 0;
 let cursorX = 0, cursorY = 0;
 
@@ -77,7 +77,7 @@ const initCursor = () => {
         mouseX = e.clientX;
         mouseY = e.clientY;
         
-        // Create stardust trail
+        //stardust trail
         if (Math.random() > 0.7) {
             const trail = document.createElement('div');
             trail.className = 'cursor-trail';
@@ -99,28 +99,28 @@ const initCursor = () => {
     animateCursor();
 };
 
-// Enhanced Planet Interactions with Tooltips
+//planet interactions
 const initPlanets = () => {
     const planets = document.querySelectorAll('.planet');
     
     planets.forEach((planet, index) => {
-        // Create tooltip
+        //tooltip
         const tooltip = document.createElement('div');
         tooltip.className = 'planet-tooltip';
         const title = planet.querySelector('.planet-title').textContent;
         tooltip.textContent = `Explore ${title}`;
         planet.appendChild(tooltip);
         
-        // Add click interaction
+        //click interaction
         planet.addEventListener('click', () => {
             const projectTitle = planet.querySelector('.planet-title').textContent;
             const projectDesc = planet.querySelector('.planet-desc').textContent;
             
-            // Create modal or alert (you can enhance this with a custom modal)
+            //creating alert
             alert(`🚀 ${projectTitle}\n\n${projectDesc}\n\nClick to view full project details!`);
         });
         
-        // Enhanced hover effects
+        //hover effects
         planet.addEventListener('mouseenter', () => {
             planet.style.animationPlayState = 'paused';
         });
@@ -131,7 +131,7 @@ const initPlanets = () => {
     });
 };
 
-// Smooth Scroll with Parallax
+//parallax effect
 const initSmoothScroll = () => {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -147,7 +147,7 @@ const initSmoothScroll = () => {
     });
 };
 
-// Parallax Starfield Effect
+//parallax starfield
 const initParallax = () => {
     const starfield = document.getElementById('starfield');
     
@@ -157,7 +157,7 @@ const initParallax = () => {
     });
 };
 
-// Animated Stats Counter
+//animated stars
 const initStatsCounter = () => {
     const observerOptions = {
         threshold: 0.5,
@@ -195,7 +195,7 @@ const initStatsCounter = () => {
     if (statsSection) observer.observe(statsSection);
 };
 
-// Reveal animations on scroll
+//animations on scrolling
 const initScrollAnimations = () => {
     const observerOptions = {
         threshold: 0.1,
@@ -210,8 +210,6 @@ const initScrollAnimations = () => {
             }
         });
     }, observerOptions);
-
-    // Observe sections for reveal animation
     const sections = document.querySelectorAll('.mission-log, .planet, .cockpit-panel');
     sections.forEach(section => {
         section.style.opacity = '0';
@@ -221,7 +219,7 @@ const initScrollAnimations = () => {
     });
 };
 
-// Form Submission Handler
+//form submission handler
 const initFormHandler = () => {
     const form = document.querySelector('form');
     
@@ -232,7 +230,7 @@ const initFormHandler = () => {
         const email = form.querySelector('input[type="email"]').value;
         const message = form.querySelector('textarea').value;
         
-        // Show success message with animation
+        //showing success message
         const submitBtn = form.querySelector('.submit-btn');
         const originalText = submitBtn.textContent;
         
@@ -248,7 +246,7 @@ const initFormHandler = () => {
     });
 };
 
-// Keyboard Navigation Enhancement
+//keyboard navigation
 const initKeyboardNav = () => {
     document.addEventListener('keydown', (e) => {
         // Toggle theme with 'T' key
@@ -256,7 +254,7 @@ const initKeyboardNav = () => {
             toggleTheme();
         }
         
-        // Navigate sections with arrow keys
+        //navigating with arrow keys
         if (e.key === 'ArrowDown') {
             const sections = ['hero', 'about', 'portfolio', 'contact'];
             const currentSection = sections.find(id => {
@@ -293,7 +291,7 @@ const initKeyboardNav = () => {
     });
 };
 
-// Add floating particles effect
+//floating particles effect
 const createFloatingParticles = () => {
     const createParticle = () => {
         const particle = document.createElement('div');
@@ -322,7 +320,7 @@ const createFloatingParticles = () => {
         document.body.appendChild(particle);
     };
     
-    // Create particles periodically
+
     setInterval(() => {
         if (Math.random() > 0.7) {
             createParticle();
@@ -330,28 +328,28 @@ const createFloatingParticles = () => {
     }, 2000);
 };
 
-// Check for reduced motion preference
+// checking reduced motion preference
 const prefersReducedMotion = () => {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 };
 
-// Initialize everything on page load
+// initializing everything on page load
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize theme first
     const currentTheme = initTheme();
     createThemeToggle();
     
-    // Create visual elements
+    //visual elements
     createStarfield();
     
-    // Initialize interactions
+    //interactions
     initCursor();
     initPlanets();
     initSmoothScroll();
     initFormHandler();
     initKeyboardNav();
     
-    // Initialize animations if motion is allowed
+    //animations if motion is allowed
     if (!prefersReducedMotion()) {
         initParallax();
         initStatsCounter();
@@ -359,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
         createFloatingParticles();
     }
     
-    // Add loading fade-in effect
+    //loading fade-in effect
     document.body.style.opacity = '0';
     document.body.style.transition = 'opacity 0.5s ease';
     setTimeout(() => {
@@ -367,12 +365,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 });
 
-// Handle window resize
+//handling window resize
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-        // Regenerate starfield on significant resize
+        //generating starfield on significant resize
         const starfield = document.getElementById('starfield');
         const currentStars = starfield.children.length;
         const targetStars = window.innerWidth < 768 ? 100 : 200;
